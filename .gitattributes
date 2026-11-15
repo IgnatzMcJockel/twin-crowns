@@ -1,0 +1,5 @@
+# Run inside WSL and on the Pi, so a Windows checkout must not turn these into CRLF.
+*.sh    text eol=lf
+*.patch text eol=lf
+*.py    text eol=lf
+Makefile text eol=lf

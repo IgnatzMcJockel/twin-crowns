@@ -1,0 +1,6 @@
+[submodule "third_party/MoT"]
+	path = third_party/MoT
+	url = ../MoT
+[submodule "third_party/chowdsp_wdf"]
+	path = third_party/chowdsp_wdf
+	url = ../chowdsp_wdf

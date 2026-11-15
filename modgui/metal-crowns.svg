@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="446" viewBox="0 0 640 446">
+<!-- Raw cast aluminium for the Twin Crowns face: grain, faint blotches, vignette and scratches. -->
+<defs>
+ <filter id="grain" x="0" y="0" width="100%" height="100%">
+  <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="11"/>
+  <feColorMatrix type="saturate" values="0"/>
+  <feComponentTransfer>
+   <feFuncR type="linear" slope="0.16" intercept="0.55"/>
+   <feFuncG type="linear" slope="0.16" intercept="0.555"/>
+   <feFuncB type="linear" slope="0.16" intercept="0.562"/>
+   <feFuncA type="table" tableValues="1 1"/>
+  </feComponentTransfer>
+ </filter>
+ <filter id="blotch" x="0" y="0" width="100%" height="100%">
+  <feTurbulence type="fractalNoise" baseFrequency="0.014" numOctaves="4" seed="15"/>
+  <feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.45 0.24750000000000003"/>
+ </filter>
+ <radialGradient id="vig" cx=".5" cy=".45" r=".75">
+  <stop offset=".6" stop-color="#000" stop-opacity="0"/>
+  <stop offset="1" stop-color="#000" stop-opacity=".28"/>
+ </radialGradient>
+</defs>
+<rect width="100%" height="100%" filter="url(#grain)"/>
+<rect width="100%" height="100%" filter="url(#blotch)"/>
+<rect width="100%" height="100%" fill="url(#vig)"/>
+<path d="M290,250 q24,16 55,31" stroke="#fff" stroke-opacity="0.35" stroke-width="1.0" fill="none"/>
+<path d="M60,135 q25,41 38,71" stroke="#fff" stroke-opacity="0.36" stroke-width="0.8" fill="none"/>
+<path d="M101,7 q11,0 33,1" stroke="#fff" stroke-opacity="0.30" stroke-width="1.0" fill="none"/>
+<path d="M332,286 q35,6 58,-0" stroke="#fff" stroke-opacity="0.41" stroke-width="0.9" fill="none"/>
+<path d="M202,102 q47,-12 85,-22" stroke="#fff" stroke-opacity="0.44" stroke-width="1.0" fill="none"/>
+<path d="M0,94 q43,27 95,51" stroke="#fff" stroke-opacity="0.39" stroke-width="0.6" fill="none"/>
+<path d="M56,148 q-12,6 -14,22" stroke="#fff" stroke-opacity="0.40" stroke-width="0.5" fill="none"/>
+<path d="M358,200 q0,12 10,26" stroke="#000" stroke-opacity="0.16" stroke-width="0.6" fill="none"/>
+<path d="M621,358 q8,19 8,34" stroke="#fff" stroke-opacity="0.21" stroke-width="1.1" fill="none"/>
+<path d="M136,115 q16,8 41,14" stroke="#fff" stroke-opacity="0.25" stroke-width="0.8" fill="none"/>
+<path d="M238,202 q26,14 59,36" stroke="#000" stroke-opacity="0.28" stroke-width="1.0" fill="none"/>
+<path d="M160,85 q-0,17 -10,32" stroke="#000" stroke-opacity="0.20" stroke-width="0.5" fill="none"/>
+<path d="M25,429 q7,16 12,37" stroke="#000" stroke-opacity="0.15" stroke-width="0.9" fill="none"/>
+<path d="M44,102 q2,33 -5,73" stroke="#fff" stroke-opacity="0.18" stroke-width="0.6" fill="none"/>
+<path d="M285,27 q30,-8 64,-26" stroke="#fff" stroke-opacity="0.44" stroke-width="0.9" fill="none"/>
+<path d="M442,261 q10,2 15,-7" stroke="#000" stroke-opacity="0.12" stroke-width="0.8" fill="none"/>
+<path d="M309,326 q5,16 5,22" stroke="#fff" stroke-opacity="0.38" stroke-width="0.9" fill="none"/>
+<path d="M508,408 q49,-5 99,-18" stroke="#000" stroke-opacity="0.28" stroke-width="0.8" fill="none"/>
+<path d="M400,171 q17,6 23,2" stroke="#000" stroke-opacity="0.25" stroke-width="0.7" fill="none"/>
+<path d="M470,259 q-5,13 2,23" stroke="#000" stroke-opacity="0.21" stroke-width="0.6" fill="none"/>
+<path d="M447,222 q-5,22 -5,39" stroke="#fff" stroke-opacity="0.23" stroke-width="0.5" fill="none"/>
+<path d="M580,294 q-2,22 3,46" stroke="#000" stroke-opacity="0.27" stroke-width="1.0" fill="none"/>
+<path d="M563,171 q18,6 28,3" stroke="#fff" stroke-opacity="0.37" stroke-width="1.1" fill="none"/>
+<path d="M177,75 q19,-1 35,-2" stroke="#fff" stroke-opacity="0.27" stroke-width="1.0" fill="none"/>
+<path d="M629,202 q45,-23 85,-48" stroke="#fff" stroke-opacity="0.26" stroke-width="1.0" fill="none"/>
+<path d="M12,61 q43,-8 94,-5" stroke="#fff" stroke-opacity="0.35" stroke-width="0.7" fill="none"/>
+</svg>

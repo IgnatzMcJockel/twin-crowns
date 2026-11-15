@@ -1,0 +1,15 @@
+@prefix lv2:  <http://lv2plug.in/ns/lv2core#> .
+@prefix pset: <http://lv2plug.in/ns/ext/presets#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<@URI@>
+    a lv2:Plugin ;
+    lv2:binary <@NAME@.so> ;
+    rdfs:seeAlso <@NAME@.ttl>, <modgui.ttl> .
+
+# Hosts discover presets here, so each one in presets.ttl needs an entry.
+<@URI@#preset-blues> a pset:Preset ; lv2:appliesTo <@URI@> ; rdfs:seeAlso <presets.ttl> .
+<@URI@#preset-high-gain> a pset:Preset ; lv2:appliesTo <@URI@> ; rdfs:seeAlso <presets.ttl> .
+<@URI@#preset-rhythm-crunch> a pset:Preset ; lv2:appliesTo <@URI@> ; rdfs:seeAlso <presets.ttl> .
+<@URI@#preset-edge-of-breakup> a pset:Preset ; lv2:appliesTo <@URI@> ; rdfs:seeAlso <presets.ttl> .
+<@URI@#preset-fuzz> a pset:Preset ; lv2:appliesTo <@URI@> ; rdfs:seeAlso <presets.ttl> .

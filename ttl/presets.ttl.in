@@ -1,0 +1,87 @@
+@prefix lv2:  <http://lv2plug.in/ns/lv2core#> .
+@prefix pset: <http://lv2plug.in/ns/ext/presets#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# MoT's factory presets from src/Presets.h, in its order. Knobs there are on the 0-10 dial, so
+# 4 becomes 0.4. Like MoT, a preset leaves out on/off, trims and supply voltage, so those stay as
+# they are. Modes: 0 Boost, 1 Overdrive, 2 Distortion.
+
+<@URI@#preset-blues>
+    a pset:Preset ;
+    lv2:appliesTo <@URI@> ;
+    rdfs:label "Blues" ;
+    lv2:port
+        [ lv2:symbol "red_volume" ; pset:value 0.6 ] ,
+        [ lv2:symbol "yellow_volume" ; pset:value 0.6 ] ,
+        [ lv2:symbol "red_drive" ; pset:value 0.4 ] ,
+        [ lv2:symbol "yellow_drive" ; pset:value 0.4 ] ,
+        [ lv2:symbol "red_tone" ; pset:value 0.5 ] ,
+        [ lv2:symbol "yellow_tone" ; pset:value 0.5 ] ,
+        [ lv2:symbol "red_presence" ; pset:value 0.0 ] ,
+        [ lv2:symbol "yellow_presence" ; pset:value 0.0 ] ,
+        [ lv2:symbol "red_mode" ; pset:value 1 ] ,
+        [ lv2:symbol "yellow_mode" ; pset:value 0 ] .
+
+<@URI@#preset-high-gain>
+    a pset:Preset ;
+    lv2:appliesTo <@URI@> ;
+    rdfs:label "High Gain" ;
+    lv2:port
+        [ lv2:symbol "red_volume" ; pset:value 0.8 ] ,
+        [ lv2:symbol "yellow_volume" ; pset:value 0.9 ] ,
+        [ lv2:symbol "red_drive" ; pset:value 0.8 ] ,
+        [ lv2:symbol "yellow_drive" ; pset:value 0.8 ] ,
+        [ lv2:symbol "red_tone" ; pset:value 0.6 ] ,
+        [ lv2:symbol "yellow_tone" ; pset:value 0.6 ] ,
+        [ lv2:symbol "red_presence" ; pset:value 0.0 ] ,
+        [ lv2:symbol "yellow_presence" ; pset:value 0.0 ] ,
+        [ lv2:symbol "red_mode" ; pset:value 2 ] ,
+        [ lv2:symbol "yellow_mode" ; pset:value 1 ] .
+
+<@URI@#preset-rhythm-crunch>
+    a pset:Preset ;
+    lv2:appliesTo <@URI@> ;
+    rdfs:label "Rhythm Crunch" ;
+    lv2:port
+        [ lv2:symbol "red_volume" ; pset:value 0.7 ] ,
+        [ lv2:symbol "yellow_volume" ; pset:value 0.7 ] ,
+        [ lv2:symbol "red_drive" ; pset:value 0.5 ] ,
+        [ lv2:symbol "yellow_drive" ; pset:value 0.5 ] ,
+        [ lv2:symbol "red_tone" ; pset:value 0.7 ] ,
+        [ lv2:symbol "yellow_tone" ; pset:value 0.7 ] ,
+        [ lv2:symbol "red_presence" ; pset:value 0.0 ] ,
+        [ lv2:symbol "yellow_presence" ; pset:value 0.0 ] ,
+        [ lv2:symbol "red_mode" ; pset:value 0 ] ,
+        [ lv2:symbol "yellow_mode" ; pset:value 1 ] .
+
+<@URI@#preset-edge-of-breakup>
+    a pset:Preset ;
+    lv2:appliesTo <@URI@> ;
+    rdfs:label "Edge-of-Breakup" ;
+    lv2:port
+        [ lv2:symbol "red_volume" ; pset:value 0.5 ] ,
+        [ lv2:symbol "yellow_volume" ; pset:value 0.6 ] ,
+        [ lv2:symbol "red_drive" ; pset:value 0.3 ] ,
+        [ lv2:symbol "yellow_drive" ; pset:value 0.3 ] ,
+        [ lv2:symbol "red_tone" ; pset:value 0.4 ] ,
+        [ lv2:symbol "yellow_tone" ; pset:value 0.4 ] ,
+        [ lv2:symbol "red_presence" ; pset:value 0.0 ] ,
+        [ lv2:symbol "yellow_presence" ; pset:value 0.0 ] ,
+        [ lv2:symbol "red_mode" ; pset:value 1 ] ,
+        [ lv2:symbol "yellow_mode" ; pset:value 0 ] .
+
+<@URI@#preset-fuzz>
+    a pset:Preset ;
+    lv2:appliesTo <@URI@> ;
+    rdfs:label "Fuzz" ;
+    lv2:port
+        [ lv2:symbol "red_volume" ; pset:value 0.9 ] ,
+        [ lv2:symbol "yellow_volume" ; pset:value 0.9 ] ,
+        [ lv2:symbol "red_drive" ; pset:value 0.9 ] ,
+        [ lv2:symbol "yellow_drive" ; pset:value 0.9 ] ,
+        [ lv2:symbol "red_tone" ; pset:value 0.2 ] ,
+        [ lv2:symbol "yellow_tone" ; pset:value 0.2 ] ,
+        [ lv2:symbol "red_presence" ; pset:value 0.0 ] ,
+        [ lv2:symbol "yellow_presence" ; pset:value 0.0 ] ,
+        [ lv2:symbol "red_mode" ; pset:value 2 ] ,
+        [ lv2:symbol "yellow_mode" ; pset:value 2 ] .

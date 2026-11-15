@@ -1,0 +1,351 @@
+/* Twin Crowns face: raw cast aluminium with marker writing. The layout follows Monarch of Tone's pedal
+   face, mirrored so Red (A, first) sits on the left. Knobs, switches, LEDs and footswitches are MoT's art,
+   copied from its assets/ui at build time. The fonts are Apache 2.0, see LICENSE-fonts.txt. */
+
+@font-face {
+    font-family: "CrownsMarker{{{cns}}}";
+    src: url(/resources/PermanentMarker-Regular.ttf{{{ns}}});
+}
+
+@font-face {
+    font-family: "CrownsScrawl{{{cns}}}";
+    src: url(/resources/RockSalt-Regular.ttf{{{ns}}});
+}
+
+.crowns{{{cns}}} {
+    --ink: #17181a;
+    --ink-red: #b3121b;
+    --ink-yellow: #d49b00;
+    position: absolute;
+    width: 640px;
+    height: 446px;
+    overflow: visible;
+    border-radius: 14px;
+    background: #9a9c9f url(/resources/metal-crowns.svg{{{ns}}}) center / 100% 100% no-repeat;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .45), inset 0 7px 12px rgba(255, 255, 255, .28),
+                inset 0 -8px 18px rgba(0, 0, 0, .38), inset 0 0 50px rgba(0, 0, 0, .18);
+    color: var(--ink);
+    user-select: none;
+}
+
+/* MOD-UI sets its own font on every element with `* { … !important }`, so ours needs !important too. */
+.crowns{{{cns}}},
+.crowns{{{cns}}} * {
+    font-family: "CrownsMarker{{{cns}}}", "Comic Sans MS", sans-serif !important;
+}
+
+.crowns{{{cns}}} .mod-drag-handle {
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+}
+
+/* MOD-UI puts the drag handle at z-index 20, so controls have to sit above it to receive clicks. */
+.crowns{{{cns}}} [mod-role=input-control-port],
+.crowns{{{cns}}} [mod-role=bypass] {
+    z-index: 21;
+}
+
+.crowns{{{cns}}}.mod-pedal .mod-pedal-input,
+.crowns{{{cns}}}.mod-pedal .mod-pedal-output {
+    top: 150px;
+}
+
+/* = MARKER INK
+   A slight wobble, and multiply so the metal shows through.
+================================================ */
+.crowns{{{cns}}} .crowns-defs {
+    position: absolute;
+}
+
+.crowns{{{cns}}} .crowns-label,
+.crowns{{{cns}}} .crowns-small-label,
+.crowns{{{cns}}} .crowns-title,
+.crowns{{{cns}}} .crowns-sign,
+.crowns{{{cns}}} .crowns-crowns,
+.crowns{{{cns}}} [mod-role=enumeration-option] {
+    filter: url(#crowns-wobble{{{cns}}});
+    mix-blend-mode: multiply;
+}
+
+.crowns{{{cns}}} .crowns-red { color: var(--ink-red); }
+.crowns{{{cns}}} .crowns-yellow { color: var(--ink-yellow); }
+
+/* = CROWNS
+================================================ */
+.crowns{{{cns}}} .crowns-crowns {
+    position: absolute;
+    left: 249px;
+    top: 106px;
+    width: 140px;
+    height: 70px;
+    overflow: visible;
+    pointer-events: none;
+    filter: url(#crowns-scrawl{{{cns}}});
+}
+
+/* Each crown takes its colour from a variable on its group. */
+.crowns{{{cns}}} .crowns-crown-red { --crown: rgba(200, 20, 30, .75); }
+.crowns{{{cns}}} .crowns-crown-yellow { --crown: rgba(255, 214, 0, .75); }
+
+.crowns{{{cns}}} .crowns-crown path {
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 3.2;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+}
+
+.crowns{{{cns}}} .crowns-crown .crowns-crown-fill {
+    fill: var(--crown);
+    stroke: none;
+}
+
+.crowns{{{cns}}} .crowns-crown .crowns-crown-retrace {
+    stroke-width: 1.8;
+    opacity: .75;
+}
+
+.crowns{{{cns}}} .crowns-crown .crowns-crown-jewel {
+    fill: var(--ink);
+    stroke-width: 1;
+}
+
+/* = LABELS
+================================================ */
+.crowns{{{cns}}} .crowns-label {
+    position: absolute;
+    width: 90px;
+    text-align: center;
+    font-size: 22px;
+    line-height: 22px;
+    pointer-events: none;
+}
+
+.crowns{{{cns}}} .crowns-label-top { top: 116px; }
+.crowns{{{cns}}} .crowns-label-low { top: 226px; }
+
+.crowns{{{cns}}} .crowns-small-label {
+    position: absolute;
+    width: 60px;
+    margin-left: -2px;
+    text-align: center;
+    font-size: 13px;
+    line-height: 15px;
+    pointer-events: none;
+}
+
+.crowns{{{cns}}} .crowns-title {
+    position: absolute;
+    left: 0;
+    top: 294px;
+    width: 640px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 50px;
+    line-height: 54px;
+    letter-spacing: 2px;
+    transform: rotate(-1.5deg);
+    pointer-events: none;
+}
+
+.crowns{{{cns}}} .crowns-sign {
+    position: absolute;
+    left: 512px;
+    top: 342px;
+    white-space: nowrap;
+    font-size: 11px;
+    font-family: "CrownsScrawl{{{cns}}}", cursive !important;
+    transform: rotate(-4deg);
+    pointer-events: none;
+}
+
+/* = KNOBS
+================================================ */
+.crowns{{{cns}}} .crowns-knob {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    cursor: pointer;
+    background: url(/resources/bakelite_knob.png{{{ns}}}) center / 100% no-repeat;
+}
+
+.crowns{{{cns}}} .crowns-x-a { left: 38px; }
+.crowns{{{cns}}} .crowns-x-b { left: 159px; }
+.crowns{{{cns}}} .crowns-x-c { left: 99px; }
+.crowns{{{cns}}} .crowns-x-d { left: 389px; }
+.crowns{{{cns}}} .crowns-x-e { left: 510px; }
+.crowns{{{cns}}} .crowns-x-f { left: 450px; }
+.crowns{{{cns}}} .crowns-y-top { top: 24px; }
+.crowns{{{cns}}} .crowns-y-low { top: 134px; }
+
+.crowns{{{cns}}} .crowns-presence {
+    position: absolute;
+    top: 182px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    background: url(/resources/trim_knob.png{{{ns}}}) center / 100% no-repeat;
+}
+
+.crowns{{{cns}}} .crowns-presence-left { left: 211px; }
+.crowns{{{cns}}} .crowns-presence-right { left: 398px; }
+.crowns{{{cns}}} .crowns-presence-label-left { left: 198px; top: 212px; }
+.crowns{{{cns}}} .crowns-presence-label-right { left: 385px; top: 212px; }
+
+.crowns{{{cns}}} .crowns-trim {
+    position: absolute;
+    top: 366px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    background: url(/resources/vol_trim.png{{{ns}}}) center / 100% no-repeat;
+}
+
+.crowns{{{cns}}} .crowns-trim-in { left: 34px; }
+.crowns{{{cns}}} .crowns-trim-out { left: 566px; }
+.crowns{{{cns}}} .crowns-trim-label-in { left: 26px; top: 408px; }
+.crowns{{{cns}}} .crowns-trim-label-out { left: 558px; top: 408px; }
+
+/* = SWITCHES WITH THREE POSITIONS
+   The chosen position is circled in marker.
+================================================ */
+.crowns{{{cns}}} [mod-role=enumeration-option] {
+    cursor: pointer;
+    color: var(--ink);
+    opacity: .5;
+}
+
+.crowns{{{cns}}} [mod-role=enumeration-option].selected {
+    opacity: 1;
+}
+
+/* A quick marker loop that goes round once and overshoots a little. It's a mask, so background-color sets its colour. */
+.crowns{{{cns}}} [mod-role=enumeration-option].selected::after {
+    content: "";
+    position: absolute;
+    inset: -7px -8px -6px -8px;
+    background-color: var(--ink);
+    -webkit-mask: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 60' preserveAspectRatio='none'><path d='M14,18 C30,4 80,2 94,16 C106,30 86,52 52,54 C20,56 2,44 4,30 C6,18 22,10 44,9 C64,7 83,9 91,18' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>") center / 100% 100% no-repeat;
+    mask: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 60' preserveAspectRatio='none'><path d='M14,18 C30,4 80,2 94,16 C106,30 86,52 52,54 C20,56 2,44 4,30 C6,18 22,10 44,9 C64,7 83,9 91,18' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>") center / 100% 100% no-repeat;
+    transform: rotate(-4deg);
+}
+
+.crowns{{{cns}}} .crowns-clip-left [mod-role=enumeration-option].selected::after { background-color: var(--ink-red); }
+.crowns{{{cns}}} .crowns-clip-right [mod-role=enumeration-option].selected::after { background-color: var(--ink-yellow); }
+
+.crowns{{{cns}}} .crowns-supply {
+    position: absolute;
+    left: 250px;
+    top: 12px;
+    width: 140px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 17px;
+    line-height: 26px;
+}
+
+.crowns{{{cns}}} .crowns-supply [mod-role=enumeration-option] {
+    position: relative;
+    width: 44px;
+    text-align: center;
+}
+
+.crowns{{{cns}}} .crowns-clip {
+    position: absolute;
+    top: 182px;
+    width: 92px;
+    height: 104px;
+    font-size: 13px;
+    line-height: 18px;
+}
+
+.crowns{{{cns}}} .crowns-clip-left { left: 8px; }
+.crowns{{{cns}}} .crowns-clip-right { left: 540px; }
+
+.crowns{{{cns}}} .crowns-clip [mod-role=enumeration-option] {
+    position: absolute;
+    width: 56px;
+    height: 18px;
+    text-align: center;
+}
+
+.crowns{{{cns}}} .crowns-clip-left .crowns-clip-boost,
+.crowns{{{cns}}} .crowns-clip-left .crowns-clip-dist { left: 12px; }
+.crowns{{{cns}}} .crowns-clip-right .crowns-clip-boost,
+.crowns{{{cns}}} .crowns-clip-right .crowns-clip-dist { left: 24px; }
+.crowns{{{cns}}} .crowns-clip .crowns-clip-boost { top: 0; }
+.crowns{{{cns}}} .crowns-clip .crowns-clip-dist { top: 86px; }
+
+.crowns{{{cns}}} .crowns-clip .crowns-clip-od {
+    top: 42px;
+    width: 34px;
+}
+
+.crowns{{{cns}}} .crowns-clip-left .crowns-clip-od { left: 62px; }
+.crowns{{{cns}}} .crowns-clip-right .crowns-clip-od { left: -2px; }
+.crowns{{{cns}}} .crowns-clip .crowns-clip-od.selected::after { inset: -7px -8px -6px -9px; }
+
+.crowns{{{cns}}} .crowns-lever {
+    position: absolute;
+    top: 30px;
+    width: 44px;
+    height: 44px;
+    pointer-events: none;
+    background: url(/resources/switch_mid.png{{{ns}}}) center / 100% no-repeat;
+}
+
+.crowns{{{cns}}} .crowns-clip-left .crowns-lever { left: 18px; }
+.crowns{{{cns}}} .crowns-clip-right .crowns-lever { left: 30px; }
+
+.crowns{{{cns}}} .crowns-clip-boost.selected ~ .crowns-lever { background-image: url(/resources/switch_up.png{{{ns}}}); }
+.crowns{{{cns}}} .crowns-clip-dist.selected ~ .crowns-lever { background-image: url(/resources/switch_down.png{{{ns}}}); }
+
+/* = LEDS AND FOOTSWITCHES
+================================================ */
+.crowns{{{cns}}} .crowns-led {
+    position: absolute;
+    top: 258px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    background: url(/resources/bezel_led_off.png{{{ns}}}) center / 100% no-repeat;
+}
+
+.crowns{{{cns}}} .crowns-led-left { left: 203px; }
+.crowns{{{cns}}} .crowns-led-right { left: 396px; }
+.crowns{{{cns}}} .crowns-led.crowns-red.on { background-image: url(/resources/bezel_led_red.png{{{ns}}}); }
+.crowns{{{cns}}} .crowns-led.crowns-yellow.on { background-image: url(/resources/bezel_led_yellow.png{{{ns}}}); }
+
+/* Whole pedal: warm white, so it doesn't read as one of the two channel LEDs. */
+.crowns{{{cns}}} .crowns-led-main {
+    position: absolute;
+    left: 299px;
+    top: 177px;
+    width: 40px;
+    height: 40px;
+    background: url(/resources/bezel_led_off.png{{{ns}}}) center / 100% no-repeat;
+}
+
+.crowns{{{cns}}} .crowns-led-main.on {
+    background-image: url(/resources/bezel_led_yellow.png{{{ns}}});
+    filter: saturate(.2) brightness(1.15);
+}
+
+
+.crowns{{{cns}}} .crowns-footswitch {
+    position: absolute;
+    top: 354px;
+    width: 70px;
+    height: 70px;
+    cursor: pointer;
+    background: url(/resources/footswitch_up.png{{{ns}}}) center / 100% no-repeat;
+}
+
+.crowns{{{cns}}} .crowns-footswitch:active { background-image: url(/resources/footswitch_down.png{{{ns}}}); }
+.crowns{{{cns}}} .crowns-footswitch-left { left: 137px; }
+.crowns{{{cns}}} .crowns-footswitch-right { left: 431px; }
+.crowns{{{cns}}} .crowns-footswitch-main { left: 285px; }
+.crowns{{{cns}}} .crowns-footswitch-label-main { left: 292px; top: 426px; }
+.crowns{{{cns}}} .crowns-footswitch-label-left { left: 144px; top: 426px; }
+.crowns{{{cns}}} .crowns-footswitch-label-right { left: 438px; top: 426px; }

@@ -1,0 +1,119 @@
+<div class="mod-pedal crowns{{{cns}}}">
+    <div mod-role="drag-handle" class="mod-drag-handle"></div>
+
+    <!-- The marker look: a slight wobble on every line of ink. -->
+    <svg class="crowns-defs" width="0" height="0">
+        <filter id="crowns-wobble{{{cns}}}">
+            <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="5" />
+            <feDisplacementMap in="SourceGraphic" scale="2.2" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+        <!-- Stronger for the crowns, which are drawn freehand rather than written. -->
+        <filter id="crowns-scrawl{{{cns}}}" x="-10%" y="-10%" width="120%" height="120%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="2" seed="9" />
+            <feDisplacementMap in="SourceGraphic" scale="3.6" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+    </svg>
+
+    <svg class="crowns-crowns" viewBox="20 -6 140 70">
+        <!-- Each crown: coloured in, outlined twice with overshoot, blobs of ink for jewels. -->
+        <g class="crowns-crown crowns-crown-red" transform="translate(30,6) rotate(-10 28 24)">
+            <path class="crowns-crown-fill" d="M6,38 L2,9 L16,23 L28,3 L40,23 L54,9 L50,38 Z" />
+            <path d="M7,38 L2.5,9.5 L15.5,23 L28,3 L40.5,22.5 L53.5,8.5 L50,38 L3.5,38.8" />
+            <path class="crowns-crown-retrace" d="M6,37 L2,10.5 L16.5,22 L27.5,4.5 L39.5,23.5 L54,10 L51,37.5" />
+            <path d="M2,45.5 C17,44 36,47.5 55,45" />
+            <path class="crowns-crown-retrace" d="M9,48.5 C22,47.5 37,49.5 48,47.8" />
+            <path class="crowns-crown-jewel" d="M0.3,8 C0,5 4.9,5 4.7,8 C4.5,10.6 0.5,10.4 0.3,8 Z" />
+            <path class="crowns-crown-jewel" d="M25.8,2 C25.5,-1 30.4,-1 30.2,2 C30,4.6 26,4.4 25.8,2 Z" />
+            <path class="crowns-crown-jewel" d="M51.3,8 C51,5 55.9,5 55.7,8 C55.5,10.6 51.5,10.4 51.3,8 Z" />
+        </g>
+        <g class="crowns-crown crowns-crown-yellow" transform="translate(94,6) rotate(10 28 24)">
+            <path class="crowns-crown-fill" d="M6,38 L2,9 L16,23 L28,3 L40,23 L54,9 L50,38 Z" />
+            <path d="M7,38 L2.5,9.5 L15.5,23 L28,3 L40.5,22.5 L53.5,8.5 L50,38 L3.5,38.8" />
+            <path class="crowns-crown-retrace" d="M6,37 L2,10.5 L16.5,22 L27.5,4.5 L39.5,23.5 L54,10 L51,37.5" />
+            <path d="M2,45.5 C17,44 36,47.5 55,45" />
+            <path class="crowns-crown-retrace" d="M9,48.5 C22,47.5 37,49.5 48,47.8" />
+            <path class="crowns-crown-jewel" d="M0.3,8 C0,5 4.9,5 4.7,8 C4.5,10.6 0.5,10.4 0.3,8 Z" />
+            <path class="crowns-crown-jewel" d="M25.8,2 C25.5,-1 30.4,-1 30.2,2 C30,4.6 26,4.4 25.8,2 Z" />
+            <path class="crowns-crown-jewel" d="M51.3,8 C51,5 55.9,5 55.7,8 C55.5,10.6 51.5,10.4 51.3,8 Z" />
+        </g>
+    </svg>
+    <div class="crowns-led-main on" mod-role="bypass-light"></div>
+
+    <div class="crowns-supply" mod-role="input-control-port" mod-port-symbol="supply_voltage" mod-widget="custom-select">
+        <div mod-role="enumeration-option" mod-port-value="0">9V</div>
+        <div mod-role="enumeration-option" mod-port-value="1">12V</div>
+        <div mod-role="enumeration-option" mod-port-value="2">18V</div>
+    </div>
+
+    <!-- Red (A) on the left: it runs first, so the face reads left to right like the pedalboard.
+         MoT's face has it the other way round, like the real pedal with its input jack on the right. -->
+    <div class="crowns-knob crowns-x-a crowns-y-top" mod-role="input-control-port" mod-port-symbol="red_volume" mod-widget="film" mod-widget-rotation="270"></div>
+    <div class="crowns-knob crowns-x-b crowns-y-top" mod-role="input-control-port" mod-port-symbol="red_drive" mod-widget="film" mod-widget-rotation="270"></div>
+    <div class="crowns-knob crowns-x-c crowns-y-low" mod-role="input-control-port" mod-port-symbol="red_tone" mod-widget="film" mod-widget-rotation="270"></div>
+    <div class="crowns-label crowns-x-a crowns-label-top">V</div>
+    <div class="crowns-label crowns-x-b crowns-label-top">D</div>
+    <div class="crowns-label crowns-x-c crowns-label-low">T</div>
+
+    <div class="crowns-presence crowns-presence-left" mod-role="input-control-port" mod-port-symbol="red_presence" mod-widget="film" mod-widget-rotation="270"></div>
+    <div class="crowns-small-label crowns-presence-label-left">Pres</div>
+
+    <div class="crowns-clip crowns-clip-left crowns-red" mod-role="input-control-port" mod-port-symbol="red_mode" mod-widget="custom-select">
+        <div class="crowns-clip-boost" mod-role="enumeration-option" mod-port-value="0">Boost</div>
+        <div class="crowns-clip-od" mod-role="enumeration-option" mod-port-value="1">OD</div>
+        <div class="crowns-clip-dist" mod-role="enumeration-option" mod-port-value="2">Dist</div>
+        <div class="crowns-lever"></div>
+    </div>
+
+    <div class="crowns-led crowns-led-left crowns-red" mod-role="input-control-port" mod-port-symbol="red_on" mod-widget="switch"></div>
+
+    <!-- Yellow (B) on the right -->
+    <div class="crowns-knob crowns-x-d crowns-y-top" mod-role="input-control-port" mod-port-symbol="yellow_volume" mod-widget="film" mod-widget-rotation="270"></div>
+    <div class="crowns-knob crowns-x-e crowns-y-top" mod-role="input-control-port" mod-port-symbol="yellow_drive" mod-widget="film" mod-widget-rotation="270"></div>
+    <div class="crowns-knob crowns-x-f crowns-y-low" mod-role="input-control-port" mod-port-symbol="yellow_tone" mod-widget="film" mod-widget-rotation="270"></div>
+    <div class="crowns-label crowns-x-d crowns-label-top">V</div>
+    <div class="crowns-label crowns-x-e crowns-label-top">D</div>
+    <div class="crowns-label crowns-x-f crowns-label-low">T</div>
+
+    <div class="crowns-presence crowns-presence-right" mod-role="input-control-port" mod-port-symbol="yellow_presence" mod-widget="film" mod-widget-rotation="270"></div>
+    <div class="crowns-small-label crowns-presence-label-right">Pres</div>
+
+    <div class="crowns-clip crowns-clip-right crowns-yellow" mod-role="input-control-port" mod-port-symbol="yellow_mode" mod-widget="custom-select">
+        <div class="crowns-clip-boost" mod-role="enumeration-option" mod-port-value="0">Boost</div>
+        <div class="crowns-clip-od" mod-role="enumeration-option" mod-port-value="1">OD</div>
+        <div class="crowns-clip-dist" mod-role="enumeration-option" mod-port-value="2">Dist</div>
+        <div class="crowns-lever"></div>
+    </div>
+
+    <div class="crowns-led crowns-led-right crowns-yellow" mod-role="input-control-port" mod-port-symbol="yellow_on" mod-widget="switch"></div>
+
+    <!-- Written on the face like the rest of the marker, so it's part of the art rather than the plugin's label. -->
+    <div class="crowns-title">Twin Crowns</div>
+    <div class="crowns-sign">McJockel '26</div>
+
+    <div class="crowns-footswitch crowns-footswitch-left" mod-role="input-control-port" mod-port-symbol="red_on" mod-widget="switch"></div>
+    <div class="crowns-footswitch crowns-footswitch-right" mod-role="input-control-port" mod-port-symbol="yellow_on" mod-widget="switch"></div>
+    <div class="crowns-footswitch crowns-footswitch-main" mod-role="bypass"></div>
+    <div class="crowns-small-label crowns-footswitch-label-left crowns-red">Red</div>
+    <div class="crowns-small-label crowns-footswitch-label-right crowns-yellow">Yellow</div>
+    <div class="crowns-small-label crowns-footswitch-label-main">On / Off</div>
+
+    <div class="crowns-trim crowns-trim-in" mod-role="input-control-port" mod-port-symbol="input_trim" mod-widget="film" mod-widget-rotation="270"></div>
+    <div class="crowns-trim crowns-trim-out" mod-role="input-control-port" mod-port-symbol="output_trim" mod-widget="film" mod-widget-rotation="270"></div>
+    <div class="crowns-small-label crowns-trim-label-in">Input</div>
+    <div class="crowns-small-label crowns-trim-label-out">Output</div>
+
+    <div class="mod-pedal-input">
+        {{#effect.ports.audio.input}}
+        <div class="mod-input mod-input-disconnected" title="{{name}}" mod-role="input-audio-port" mod-port-symbol="{{symbol}}">
+            <div class="mod-pedal-input-image"></div>
+        </div>
+        {{/effect.ports.audio.input}}
+    </div>
+    <div class="mod-pedal-output">
+        {{#effect.ports.audio.output}}
+        <div class="mod-output mod-output-disconnected" title="{{name}}" mod-role="output-audio-port" mod-port-symbol="{{symbol}}">
+            <div class="mod-pedal-output-image"></div>
+        </div>
+        {{/effect.ports.audio.output}}
+    </div>
+</div>

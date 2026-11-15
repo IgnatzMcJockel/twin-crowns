@@ -1,0 +1,194 @@
+@prefix doap:  <http://usefulinc.com/ns/doap#> .
+@prefix lv2:   <http://lv2plug.in/ns/lv2core#> .
+@prefix mod:   <http://moddevices.com/ns/mod#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix units: <http://lv2plug.in/ns/extensions/units#> .
+
+# Ports must match the Port enum in src/crowns.cpp. Ranges and defaults come from MoT's
+# createParameterLayout. Signal flow is Red, then Yellow, and the ports follow it, so hosts list
+# Red first. Pedalboards store ports by symbol, which is why the indices could still move.
+
+<@URI@>
+    a lv2:Plugin, lv2:DistortionPlugin ;
+    doap:name "Twin Crowns" ;
+    doap:license <http://opensource.org/licenses/AGPL-3.0> ;
+    rdfs:comment """Two overdrives in one box: a circuit model of a famous boutique two-in-one Bluesbreaker-style pedal, using the DSP of Monarch of Tone. The signal runs through Red (A) first, then Yellow (B), and each channel has its own footswitch. Both are the same circuit, except that Red has a fixed Hi-Gain mod: its Drive behaves roughly like Yellow's turned up by a sixth of the way, so it starts hotter. Drive sets how hard a channel clips, Volume its output level, Tone its treble. Presence is a small extra treble control after the clipping: turned up, it opens the top end from about 2 kHz and leaves the distortion itself alone. Fully down is the stock sound. The three-way switch picks the clipping: Boost stays clean until the op-amp runs out of headroom, Overdrive is the classic soft clipping and the factory setting, Distortion is harder, more compressed and quieter. The 9/12/18 V switch sets the supply for both channels. It gives Boost more clean headroom and level, and leaves Overdrive and Distortion almost unchanged. The clipping follows your input level, so the pedal cleans up when you roll back the volume on your guitar. Input sets how hard you hit the pedal, Output only the final level. Oversampling, in the settings, runs the clipping at a higher rate so bright, high-gain sounds stay free of aliasing: 4x is the default, 8x costs more CPU, 2x and 1x less. Switching it causes a short dropout, so set it before you play.""" ;
+    mod:brand "McJockel" ;
+    mod:label "Twin Crowns" ;
+    # An even minor version above 0 and an even micro version mark a stable release in LV2.
+    lv2:minorVersion 2 ;
+    lv2:microVersion 2 ;
+    lv2:optionalFeature lv2:hardRTCapable ;
+    lv2:port [
+        a lv2:InputPort, lv2:AudioPort ;
+        lv2:index 0 ;
+        lv2:symbol "in" ;
+        lv2:name "In"
+    ] , [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 1 ;
+        lv2:symbol "out" ;
+        lv2:name "Out"
+    ] , [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 2 ;
+        lv2:symbol "red_on" ;
+        lv2:name "Red" ;
+        lv2:default 1 ;
+        lv2:minimum 0 ;
+        lv2:maximum 1 ;
+        lv2:portProperty lv2:toggled
+    ] , [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 3 ;
+        lv2:symbol "red_volume" ;
+        lv2:name "Red Volume" ;
+        lv2:default 0.5 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0
+    ] , [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 4 ;
+        lv2:symbol "red_drive" ;
+        lv2:name "Red Drive" ;
+        lv2:default 0.5 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0
+    ] , [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 5 ;
+        lv2:symbol "red_tone" ;
+        lv2:name "Red Tone" ;
+        lv2:default 0.5 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0
+    ] , [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 6 ;
+        lv2:symbol "red_presence" ;
+        lv2:name "Red Presence" ;
+        lv2:default 0.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0
+    ] , [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 7 ;
+        lv2:symbol "red_mode" ;
+        lv2:name "Red Mode" ;
+        lv2:default 1 ;
+        lv2:minimum 0 ;
+        lv2:maximum 2 ;
+        lv2:portProperty lv2:integer, lv2:enumeration ;
+        lv2:scalePoint [ rdfs:label "Boost" ; rdf:value 0 ] ,
+                       [ rdfs:label "Overdrive" ; rdf:value 1 ] ,
+                       [ rdfs:label "Distortion" ; rdf:value 2 ]
+    ] , [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 8 ;
+        lv2:symbol "yellow_on" ;
+        lv2:name "Yellow" ;
+        lv2:default 1 ;
+        lv2:minimum 0 ;
+        lv2:maximum 1 ;
+        lv2:portProperty lv2:toggled
+    ] , [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 9 ;
+        lv2:symbol "yellow_volume" ;
+        lv2:name "Yellow Volume" ;
+        lv2:default 0.5 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0
+    ] , [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 10 ;
+        lv2:symbol "yellow_drive" ;
+        lv2:name "Yellow Drive" ;
+        lv2:default 0.5 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0
+    ] , [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 11 ;
+        lv2:symbol "yellow_tone" ;
+        lv2:name "Yellow Tone" ;
+        lv2:default 0.5 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0
+    ] , [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 12 ;
+        lv2:symbol "yellow_presence" ;
+        lv2:name "Yellow Presence" ;
+        lv2:default 0.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0
+    ] , [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 13 ;
+        lv2:symbol "yellow_mode" ;
+        lv2:name "Yellow Mode" ;
+        lv2:default 1 ;
+        lv2:minimum 0 ;
+        lv2:maximum 2 ;
+        lv2:portProperty lv2:integer, lv2:enumeration ;
+        lv2:scalePoint [ rdfs:label "Boost" ; rdf:value 0 ] ,
+                       [ rdfs:label "Overdrive" ; rdf:value 1 ] ,
+                       [ rdfs:label "Distortion" ; rdf:value 2 ]
+    ] , [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 14 ;
+        lv2:symbol "input_trim" ;
+        lv2:name "Input Trim" ;
+        lv2:default 0.0 ;
+        lv2:minimum -18.0 ;
+        lv2:maximum 18.0 ;
+        units:unit units:db
+    ] , [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 15 ;
+        lv2:symbol "output_trim" ;
+        lv2:name "Output Trim" ;
+        lv2:default 0.0 ;
+        lv2:minimum -18.0 ;
+        lv2:maximum 18.0 ;
+        units:unit units:db
+    ] , [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 16 ;
+        lv2:symbol "supply_voltage" ;
+        lv2:name "Supply Voltage" ;
+        lv2:default 0 ;
+        lv2:minimum 0 ;
+        lv2:maximum 2 ;
+        lv2:portProperty lv2:integer, lv2:enumeration ;
+        lv2:scalePoint [ rdfs:label "9V" ; rdf:value 0 ] ,
+                       [ rdfs:label "12V" ; rdf:value 1 ] ,
+                       [ rdfs:label "18V" ; rdf:value 2 ]
+    ] , [
+        a lv2:OutputPort, lv2:ControlPort ;
+        lv2:index 17 ;
+        lv2:symbol "latency" ;
+        lv2:name "Latency" ;
+        lv2:designation lv2:latency ;
+        lv2:minimum 0 ;
+        lv2:maximum 64 ;
+        lv2:portProperty lv2:reportsLatency, lv2:integer ;
+        units:unit units:frame
+    ] , [
+        # MoT's "Oversampling (Live)", added after the latency port. MoT defaults to 2x; 4x is our
+        # main setting.
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 18 ;
+        lv2:symbol "oversampling" ;
+        lv2:name "Oversampling" ;
+        lv2:default 2 ;
+        lv2:minimum 0 ;
+        lv2:maximum 3 ;
+        lv2:portProperty lv2:integer, lv2:enumeration ;
+        lv2:scalePoint [ rdfs:label "1x" ; rdf:value 0 ] ,
+                       [ rdfs:label "2x" ; rdf:value 1 ] ,
+                       [ rdfs:label "4x" ; rdf:value 2 ] ,
+                       [ rdfs:label "8x" ; rdf:value 3 ]
+    ] .

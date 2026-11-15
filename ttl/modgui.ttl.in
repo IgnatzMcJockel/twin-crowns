@@ -1,0 +1,19 @@
+@prefix lv2:    <http://lv2plug.in/ns/lv2core#> .
+@prefix modgui: <http://moddevices.com/ns/modgui#> .
+
+<@URI@>
+    modgui:gui [
+        modgui:resourcesDirectory <modgui> ;
+        modgui:iconTemplate <modgui/icon-crowns.html> ;
+        modgui:stylesheet <modgui/stylesheet-crowns.css> ;
+        modgui:screenshot <modgui/screenshot-crowns.png> ;
+        modgui:thumbnail <modgui/thumbnail-crowns.png> ;
+        modgui:brand "McJockel" ;
+        modgui:label "Twin Crowns" ;
+        modgui:port [ lv2:index 0 ; lv2:symbol "red_volume" ; lv2:name "Red V" ] ,
+                    [ lv2:index 1 ; lv2:symbol "red_drive" ; lv2:name "Red D" ] ,
+                    [ lv2:index 2 ; lv2:symbol "red_tone" ; lv2:name "Red Tone" ] ,
+                    [ lv2:index 3 ; lv2:symbol "yellow_volume" ; lv2:name "Yellow V" ] ,
+                    [ lv2:index 4 ; lv2:symbol "yellow_drive" ; lv2:name "Yellow D" ] ,
+                    [ lv2:index 5 ; lv2:symbol "yellow_tone" ; lv2:name "Yellow Tone" ]
+    ] .

@@ -1,0 +1,80 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index a60657e..3ee4877 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -268,6 +268,7 @@ target_include_directories(PedalRender PRIVATE src)
+ 
+ target_compile_definitions(PedalRender
+     PRIVATE
++        JUCE_DSP_ENABLE_SNAP_TO_ZERO=0
+         "JucePlugin_Name=\"Monarch of Tone\""
+         JUCE_WEB_BROWSER=0
+         JUCE_USE_CURL=0
+diff --git a/tools/PedalRender.cpp b/tools/PedalRender.cpp
+index b6015ac..f539df9 100644
+--- a/tools/PedalRender.cpp
++++ b/tools/PedalRender.cpp
+@@ -7,6 +7,8 @@
+ // Knob "position/10" maps linearly to the 0..1 param (drive/tone are B-taper). Build target
+ // `PedalRender`. Mono in/out, 48 kHz expected.
+ 
++#include <cstdlib>
++
+ #include <juce_audio_utils/juce_audio_utils.h>
+ 
+ #include "../src/PluginProcessor.h"
+@@ -63,20 +65,44 @@ int main (int argc, char* argv[])
+     setParam (apvts, "bypass_red", 1.0f);   // Yellow only — Red passes dry
+     setParam (apvts, "input_trim", 0.0f);
+     setParam (apvts, "output_trim", 0.0f);
++
++    // Reference-only: MOT_PARAMS="id=value,..." sets more parameters before the render.
++    auto applyParam = [&apvts] (const String& item)
++    {
++        setParam (apvts, item.upToFirstOccurrenceOf ("=", false, false).toRawUTF8(),
++                  item.fromFirstOccurrenceOf ("=", false, false).getFloatValue());
++    };
++
++    if (const char* extra = std::getenv ("MOT_PARAMS"))
++        for (auto& item : StringArray::fromTokens (extra, ",", ""))
++            applyParam (item);
+     if (osIndex >= 0)
+     {
+         setParam (apvts, "oversampling_realtime", (float) osIndex);
+         setParam (apvts, "oversampling_render", (float) osIndex);
+     }
+ 
+-    constexpr int blockSize = 512;
++    // Reference-only: MOT_BLOCK overrides the block size.
++    const int blockSize = std::getenv ("MOT_BLOCK") != nullptr ? std::atoi (std::getenv ("MOT_BLOCK")) : 512;
+     proc.setPlayConfigDetails (1, 1, fs, blockSize);
+     proc.setNonRealtime (nonRealtime); // render → FIR (max quality); live → IIR (low latency)
+     proc.prepareToPlay (fs, blockSize);
+ 
++    // Reference-only: MOT_EVENTS="sample:id=value,..." changes parameters during the render, sorted
++    // by sample, each applied at the start of the block that begins there.
++    StringArray events;
++
++    if (const char* list = std::getenv ("MOT_EVENTS"))
++        events = StringArray::fromTokens (list, ",", "");
++
++    int nextEvent = 0;
++
+     MidiBuffer midi;
+     for (int start = 0; start < numSamples; start += blockSize)
+     {
++        for (; nextEvent < events.size() && events[nextEvent].getIntValue() <= start; ++nextEvent)
++            applyParam (events[nextEvent].fromFirstOccurrenceOf (":", false, false));
++
+         const int n = jmin (blockSize, numSamples - start);
+         AudioBuffer<float> sub (buf.getArrayOfWritePointers(), 1, start, n);
+         proc.processBlock (sub, midi);
+@@ -85,7 +111,7 @@ int main (int argc, char* argv[])
+     outFile.deleteFile();
+     WavAudioFormat wav;
+     std::unique_ptr<FileOutputStream> os (outFile.createOutputStream());
+-    std::unique_ptr<AudioFormatWriter> writer (wav.createWriterFor (os.get(), fs, 1, 24, {}, 0));
++    std::unique_ptr<AudioFormatWriter> writer (wav.createWriterFor (os.get(), fs, 1, 32, {}, 0));
+     if (writer == nullptr)
+     {
+         std::fprintf (stderr, "cannot write %s\n", outFile.getFullPathName().toRawUTF8());
