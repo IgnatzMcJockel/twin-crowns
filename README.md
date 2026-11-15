@@ -74,6 +74,8 @@ It builds on:
 - The fonts Permanent Marker and Rock Salt by Font Diner, Apache License 2.0, see
   [modgui/LICENSE-fonts.txt](modgui/LICENSE-fonts.txt).
 
+Developed with [Claude Code](https://claude.com/claude-code) (Anthropic).
+
 Twin Crowns is an independent project. It is not affiliated with or endorsed by the author of
 Monarch of Tone, the maker of the pi-Stomp or the maker of the pedal it models. Product names
 belong to their owners.

@@ -276,15 +276,17 @@ encoders send MIDI CC to mod-host, so **every control must be a classic
   runner's user on the pi-Stomp.
 - `release.yml`: manual, for an existing release tag. Publishes it to the public GitHub repo
   through `ci/publish-github.sh`: one new commit per release with the tag's files (without
-  `.gitea/`), the tag's annotation as notes and the public author, plus a GitHub release with
-  the zipped bundle. The private history is never pushed. It aborts if anything published
-  matches the secret `PUBLISH_DENYLIST`, so **write tag annotations as public release notes**.
-  Needs the variables `PUBLISH_GITHUB_REPO`, `PUBLIC_AUTHOR_NAME`, `PUBLIC_AUTHOR_EMAIL` and the secret
-  `PUBLISH_GITHUB_TOKEN` (Gitea reserves names starting with `GITHUB_` or `GITEA_`).
+  `.gitea/` and `ci/publish-github.sh`), the tag's annotation as notes and the public author,
+  plus a GitHub release with the zipped bundle. The private history is never pushed. It aborts
+  if anything published matches the secret `PUBLISH_DENYLIST`, so **write tag annotations as
+  public release notes**. Needs the variables `PUBLISH_GITHUB_REPO`, `PUBLIC_AUTHOR_NAME`,
+  `PUBLIC_AUTHOR_EMAIL` and the secret `PUBLISH_GITHUB_TOKEN` (Gitea reserves names starting
+  with `GITHUB_` or `GITEA_`).
 - Release tags (`v1.0.0`, …) are the public version and don't match the LV2 version in
-  `ttl/twin-crowns.ttl.in` (`minorVersion`.`microVersion`, 2.2 at `v1.0.0`). LV2 has no major
-  version (that's the URI), and MOD-UI treats minor 0 or any odd number as unstable, so the TTL
-  can't say 1.0. Raise `microVersion` by 2 for every release, so hosts see it as newer.
+  `ttl/twin-crowns.ttl.in` (`minorVersion`.`microVersion`: 2.2 at `v1.0.0`, 2.4 at `v1.0.1`).
+  LV2 has no major version (that's the URI), and MOD-UI treats minor 0 or any odd number as
+  unstable, so the TTL can't say 1.0. Raise `microVersion` by 2 for every release, so hosts see
+  it as newer.
 - Every workflow mails its result to the variable `CI_NOTIFY_EMAIL` with `msmtp`.
 
 ## CPU load on the Pi 5

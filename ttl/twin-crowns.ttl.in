@@ -18,7 +18,7 @@
     mod:label "Twin Crowns" ;
     # An even minor version above 0 and an even micro version mark a stable release in LV2.
     lv2:minorVersion 2 ;
-    lv2:microVersion 2 ;
+    lv2:microVersion 4 ;
     lv2:optionalFeature lv2:hardRTCapable ;
     lv2:port [
         a lv2:InputPort, lv2:AudioPort ;
